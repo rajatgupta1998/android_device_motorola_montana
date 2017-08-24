@@ -20,13 +20,16 @@ DEVICE_PATH := device/motorola/montana
 
 BOARD_VENDOR := motorola-qcom
 
-TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
-
 # Enable dexpreopt to speed boot time
 #WITH_DEXPREOPT := true
 #WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := true
 #DONT_DEXPREOPT_PREBUILTS := true
 #WITH_DEXPREOPT_PIC := true
+
+# AIDs and CAPS
+TARGET_FS_CONFIG_GEN := \
+    $(LOCAL_PATH)/fs_config/mot_aids.txt \
+    $(LOCAL_PATH)/fs_config/file_caps.txt
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8937
