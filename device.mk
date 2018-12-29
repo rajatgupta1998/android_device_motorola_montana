@@ -407,6 +407,7 @@ PRODUCT_PACKAGES += \
     libQWiFiSoftApCfg \
     libwifi-hal-qcom \
     wcnss_service \
+    wificond \
     wifi_symlinks \
     wpa_supplicant
 
