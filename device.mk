@@ -179,6 +179,7 @@ PRODUCT_PACKAGES += \
 # Fingerprint
 PRODUCT_PACKAGES += \
     activity_recognition.msm8937 \
+    android.hardware.biometrics.fingerprint@2.1-service \
     fingerprint.msm8937
 
 # Fingerprint IDC
