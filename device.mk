@@ -61,20 +61,24 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    audiod \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0-impl \
+    android.hardware.broadcastradio@1.0-impl \
+    android.hardware.soundtrigger@2.0-impl \
     audio.primary.msm8937 \
     audio.usb.default \
     audio.a2dp.default \
     audio.r_submix.default \
     cplay \
-    libaudioresampler \
+    libaudio-resampler \
     libmmieffectswrapper \
+    libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
-    libspeakerbundle \
+    libqcomvoiceprocessingdescriptors \
     libshim_adsp \
+    libspeakerbundle \
     tinycap \
-    tinymix \
     tinypcminfo \
     tinyplay
 
