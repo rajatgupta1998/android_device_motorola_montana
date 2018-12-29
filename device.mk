@@ -179,7 +179,6 @@ PRODUCT_PACKAGES += \
 # Fingerprint
 PRODUCT_PACKAGES += \
     activity_recognition.msm8937 \
-    fingerprintd \
     fingerprint.msm8937
 
 # Fingerprint IDC
