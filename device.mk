@@ -138,8 +138,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/camera/s5k3p3_chromatix.xml:system/etc/camera/s5k3p3_chromatix.xml
 
 # CM
-PRODUCT_PACKAGES += \
-    MotoActions
+#PRODUCT_PACKAGES += \
+#    MotoActions
 
 PRODUCT_PACKAGES += \
     Launcher3
