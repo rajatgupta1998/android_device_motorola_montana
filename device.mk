@@ -16,20 +16,6 @@
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-# Dalvik/HWUI configs
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hwui.texture_cache_size=72 \
-    ro.hwui.layer_cache_size=48 \
-    ro.hwui.path_cache_size=32 \
-    ro.hwui.gradient_cache_size=1 \
-    ro.hwui.drop_shadow_cache_size=6 \
-    ro.hwui.r_buffer_cache_size=8 \
-    ro.hwui.texture_cache_flushrate=0.4 \
-    ro.hwui.text_small_cache_width=1024 \
-    ro.hwui.text_small_cache_height=1024 \
-    ro.hwui.text_large_cache_width=2048 \
-	ro.hwui.text_large_cache_height=1024
-
 # Call the proprietary setup
 $(call inherit-product, vendor/motorola/montana/montana-vendor.mk)
 
@@ -80,18 +66,19 @@ PRODUCT_PACKAGES += \
     audio.usb.default \
     audio.a2dp.default \
     audio.r_submix.default \
+    cplay \
     libaudioresampler \
+    libmmieffectswrapper \
     libqcomvisualizer \
     libqcomvoiceprocessing \
-    libmmieffectswrapper \
     libspeakerbundle \
     libshim_adsp \
-    tinymix \
     tinycap \
+    tinymix \
     tinypcminfo \
-    tinyplay \
-    cplay
-    
+    tinyplay
+
+# Audio Configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/audio_effects.conf:system/etc/audio_effects.conf \
     $(LOCAL_PATH)/configs/audio/audio_ext_spkr.conf:system/etc/audio_ext_spkr.conf \
@@ -117,77 +104,98 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/sound_trigger_mixer_paths_wcd9330.xml:system/etc/sound_trigger_mixer_paths_wcd9330.xml \
     $(LOCAL_PATH)/configs/audio/sound_trigger_mixer_paths_wcd9335.xml:system/etc/sound_trigger_mixer_paths_wcd9335.xml \
     $(LOCAL_PATH)/configs/audio/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml
-  
+
 # Bluetooth
 PRODUCT_PACKAGES += \
     bt-vendor \
     libbt-vendor
-    
+
+# Bluetooth Configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/bluetooth/interop_database.conf:system/etc/bluetooth/interop_database.conf
 
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8937 \
-    Snap \
-    libshim_camera
-    
+    libbson \
+    libshim_camera \
+    Snap
+
+# Camera Configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/camera/mot_ov5695_l5695f60_chromatix.xml:system/etc/camera/mot_ov5695_l5695f60_chromatix.xml \
     $(LOCAL_PATH)/configs/camera/msm8937_mot_montana_camera.xml:system/etc/camera/msm8937_mot_montana_camera.xml \
     $(LOCAL_PATH)/configs/camera/s5k3p3_chromatix.xml:system/etc/camera/s5k3p3_chromatix.xml
 
-# CM
-#PRODUCT_PACKAGES += \
-#    MotoActions
-
+# CUtils
 PRODUCT_PACKAGES += \
-    Launcher3
+    libcutils
 
 # Display
 PRODUCT_PACKAGES += \
-    gralloc.msm8937 \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.1-impl \
     android.hardware.graphics.mapper@2.0-impl \
     android.hardware.memtrack@1.0-impl \
+    gralloc.msm8937 \
     hwcomposer.msm8937 \
     memtrack.msm8937 \
     libGLES_android \
     libmemalloc \
     libminui \
     libqdMetaData \
-    libqdutils
+    libqdutils \
+    libtinyxml
 
-#DRM
+# Dalvik/HWUI configs
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hwui.texture_cache_size=72 \
+    ro.hwui.layer_cache_size=48 \
+    ro.hwui.path_cache_size=32 \
+    ro.hwui.gradient_cache_size=1 \
+    ro.hwui.drop_shadow_cache_size=6 \
+    ro.hwui.r_buffer_cache_size=8 \
+    ro.hwui.texture_cache_flushrate=0.4 \
+    ro.hwui.text_small_cache_width=1024 \
+    ro.hwui.text_small_cache_height=1024 \
+    ro.hwui.text_large_cache_width=2048 \
+	ro.hwui.text_large_cache_height=1024
+
+# DHCP
 PRODUCT_PACKAGES += \
-	libfwdlockengine \
-	libdrmclearkeyplugin
+    libnetutils
+
+# DRM
+PRODUCT_PACKAGES += \
+    libdrmclearkeyplugin \
+    libfwdlockengine
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    fingerprint.msm8937 \
     activity_recognition.msm8937 \
-    fingerprintd
-    
+    fingerprintd \
+    fingerprint.msm8937
+
+# Fingerprint IDC
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/uinput-fpc.idc:system/usr/idc/uinput-fpc.idc
 
-# FM
+# FM Radio
 PRODUCT_PACKAGES += \
-    FMRadio \
-    libqcomfm_jni \
-    libfm-hci \
-    qcom.fmradio \
     fmhal_service \
-    fm_helium
+    fm_helium \
+    FMRadio \
+    libfm-hci \
+    libqcomfm_jni \
+    qcom.fmradio
 
 # GPS
 PRODUCT_PACKAGES += \
     gps.default \
     libgnsspps
-    
+
+# GPS Configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps/etc/flp.conf:system/etc/flp.conf \
     $(LOCAL_PATH)/configs/gps/etc/gps.conf:system/etc/gps.conf \
@@ -196,21 +204,25 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps/etc/sap.conf:system/etc/sap.conf \
     $(LOCAL_PATH)/configs/gps/etc/xtwifi.conf:system/etc/xtwifi.conf
 
+# ION (For Camera maybe ?)
+PRODUCT_PACKAGES += \
+    libion
+
 # IPA Manager
 PRODUCT_PACKAGES += \
     ipacm \
     ipacm-diag \
-    IPACM_cfg.xml   
+    IPACM_cfg.xml
 
 # IMS
 PRODUCT_PACKAGES += \
     libshim_ims
 
-# IRSC
+# IRSC Configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
 
-# Keylayout
+# Keylayout Configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/ft5x06_ts.kl:system/usr/keylayout/ft5x06_ts.kl \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
@@ -232,6 +244,7 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw
 
+# Media Configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/etc/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media/etc/media_codecs_8956.xml:system/etc/media_codecs_8956.xml \
@@ -249,16 +262,21 @@ PRODUCT_COPY_FILES += \
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8937
-    
-# Nfc
+
+# Moto Actions
+#PRODUCT_PACKAGES += \
+#   MotoActions
+
+# NFC
 PRODUCT_PACKAGES += \
+    com.android.nfc_extras \
     libnfc-nci \
     libnfc_nci_jni \
     nfc_nci.pn54x.default \
     NfcNci \
-    com.android.nfc_extras \
     Tag
 
+# NFC Configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/nfc/etc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
     $(LOCAL_PATH)/configs/nfc/etc/libnfc-nxp.conf:system/etc/libnfc-nxp.conf \
@@ -274,80 +292,15 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     power.msm8937
 
-# Qualcomm Common
+# Protobuf
 PRODUCT_PACKAGES += \
-    libtinyxml \
-    libxml2 \
-    libnetutils \
     libprotobuf-cpp-lite \
-    libprotobuf-cpp-full \
-    libcurl \
-    libjson \
-    libcutils \
-    libion \
-    libbson
+    libprotobuf-cpp-full
 
-
-# Releasetools script
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/check_features.sh:system/vendor/bin/check_features.sh
-    
-
-# RenderScript HAL
+# QMI (Qualcomm MSM Interface)
 PRODUCT_PACKAGES += \
-    android.hardware.renderscript@1.0-impl
+    libjson
 
-# RIL
-PRODUCT_PACKAGES += \
-    librmnetctl \
-    libshim_ril \
-    rmnetcli
-
-# Sensors
-PRODUCT_PACKAGES += \
-    sensors.rp \
-    sensors.ssc \
-    sensors.montana
-    
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf \
-    $(LOCAL_PATH)/configs/sensors/sensor_def_qcomdev.conf:system/etc/sensors/sensor_def_qcomdev.conf
-
-# Thermal
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf \
-    $(LOCAL_PATH)/configs/thermal-engine-montana.conf:system/etc/thermal-engine-montana.conf
-
-# Wifi
-PRODUCT_PACKAGES += \
-    wifi_symlinks \
-    hostapd \
-    wpa_supplicant \
-    libqsap_sdk \
-    libQWiFiSoftApCfg \
-    wcnss_service \
-    hs20-osu-client \
-    libwifi-hal-qcom
-
-PRODUCT_COPY_FILES += \
-    kernel/motorola/msm8937/drivers/staging/prima/firmware_bin/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
-    $(LOCAL_PATH)/configs/wifi/p2p_supplicant.conf:system/etc/wifi/p2p_supplicant.conf \
-    $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/hostapd/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
-    $(LOCAL_PATH)/configs/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept \
-    $(LOCAL_PATH)/configs/hostapd/hostapd.deny:system/etc/hostapd/hostapd.deny
-              
-# MISC - NOT SURE WHAT AND WHY
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/vhw.xml:system/etc/vhw.xml \
-    $(LOCAL_PATH)/configs/rtt-conf.xml:system/etc/rtt-conf.xml \
-    $(LOCAL_PATH)/configs/voicemail-conf.xml:system/etc/voicemail-conf.xml \
-    $(LOCAL_PATH)/configs/appops_policy.xml:system/etc/appops_policy.xml \
-    $(LOCAL_PATH)/configs/buffers-conf.xml:system/etc/buffers-conf.xml
 # Ramdisk
 # BIN
 PRODUCT_PACKAGES += \
@@ -409,6 +362,71 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/init/mediaserver.rc:system/etc/init/mediaserver.rc \
     $(LOCAL_PATH)/configs/init/rild.rc:system/etc/init/rild.rc \
     $(LOCAL_PATH)/configs/init/surfaceflinger.rc:system/etc/init/surfaceflinger.rc
+
+# Releasetools script
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/check_features.sh:system/vendor/bin/check_features.sh
+
+# RenderScript HAL
+PRODUCT_PACKAGES += \
+    android.hardware.renderscript@1.0-impl
+
+# RIL
+PRODUCT_PACKAGES += \
+    librmnetctl \
+    libshim_ril \
+    libxml2 \
+    rmnetcli
+
+# Sensors
+PRODUCT_PACKAGES += \
+    sensors.rp \
+    sensors.ssc \
+    sensors.montana
+
+# Sensor Configs
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf \
+    $(LOCAL_PATH)/configs/sensors/sensor_def_qcomdev.conf:system/etc/sensors/sensor_def_qcomdev.conf
+
+# Thermal Configs
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf \
+    $(LOCAL_PATH)/configs/thermal-engine-montana.conf:system/etc/thermal-engine-montana.conf
+
+# Visible Hardware Configs from moto
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/vhw.xml:system/etc/vhw.xml \
+
+# Wifi
+PRODUCT_PACKAGES += \
+    hostapd \
+    hs20-osu-client \
+    libcurl \
+    libqsap_sdk \
+    libQWiFiSoftApCfg \
+    libwifi-hal-qcom \
+    wcnss_service \
+    wifi_symlinks \
+    wpa_supplicant
+
+# WiFi Configs
+PRODUCT_COPY_FILES += \
+    kernel/motorola/msm8937/drivers/staging/prima/firmware_bin/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/configs/hostapd/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
+    $(LOCAL_PATH)/configs/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept \
+    $(LOCAL_PATH)/configs/hostapd/hostapd.deny:system/etc/hostapd/hostapd.deny \
+    $(LOCAL_PATH)/configs/wifi/p2p_supplicant.conf:system/etc/wifi/p2p_supplicant.conf \
+    $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+    $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+
+# eXtra misc Configs
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/rtt-conf.xml:system/etc/rtt-conf.xml \
+    $(LOCAL_PATH)/configs/voicemail-conf.xml:system/etc/voicemail-conf.xml \
+    $(LOCAL_PATH)/configs/appops_policy.xml:system/etc/appops_policy.xml \
+    $(LOCAL_PATH)/configs/buffers-conf.xml:system/etc/buffers-conf.xml
 
 # Charger images
 PRODUCT_COPY_FILES += \
