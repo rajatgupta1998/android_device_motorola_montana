@@ -215,6 +215,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps/etc/sap.conf:system/etc/sap.conf \
     $(LOCAL_PATH)/configs/gps/etc/xtwifi.conf:system/etc/xtwifi.conf
 
+# HIDL
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml
+
 # ION (For Camera maybe ?)
 PRODUCT_PACKAGES += \
     libion
