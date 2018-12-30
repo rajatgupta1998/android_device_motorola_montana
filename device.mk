@@ -240,6 +240,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/qpnp_pon.kl:system/usr/keylayout/qpnp_pon.kl \
     $(LOCAL_PATH)/keylayout/uinput-fpc.kl:system/usr/keylayout/uinput-fpc.kl
 
+# Keymaster
+PRODUCT_PACKAGES += \
+     android.hardware.keymaster@3.0-impl
+
 # Media
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
