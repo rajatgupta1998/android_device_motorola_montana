@@ -244,6 +244,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
      android.hardware.keymaster@3.0-impl
 
+# Lights
+PRODUCT_PACKAGES += \
+     lights.msm8937 \
+     android.hardware.light@2.0-impl
+
 # Media
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
@@ -271,10 +276,6 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
-
-# Lights
-PRODUCT_PACKAGES += \
-    lights.msm8937
 
 # Moto Actions
 #PRODUCT_PACKAGES += \
